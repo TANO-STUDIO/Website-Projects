@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Psychedelics | Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #08101f;
+        --surface: rgba(15, 23, 42, 0.96);
+        --surface-2: rgba(31, 41, 55, 0.9);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #7c3aed;
+        --accent-2: #22c55e;
+        --border: rgba(148, 163, 184, 0.18);
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #0b1522 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+      a { text-decoration: none; }
+      button, input { font: inherit; }
+
+      .page-shell {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .nav {
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--bg);
+      backdrop-filter: saturate(180%) blur(18px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .brand-logo {
+        height: 32px;
+        width: auto;
+        display: inline-block;
+        object-fit: contain;
+      }
+
+      .nav-links {
+
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }      .nav-links a {
+        color: var(--muted);
+        font-weight: 600;
+        transition: color 180ms ease, background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .nav-links a:hover {
+        color: white;
+        background: rgba(124, 58, 237, 0.18);
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(124, 58, 237, 0.18);
+        border-radius: 999px;
+      }
+
+      .auth-box {
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        padding: 24px;
+      }
+
+      .panel h2 { margin: 0 0 8px; }
+      .panel p { color: var(--muted); margin: 0 0 16px; }
+
+      .toggle-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .toggle-btn {
+        flex: 1;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 10px;
+        background: var(--surface);
+        color: var(--muted);
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .toggle-btn.active {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+
+      .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 12px;
+      }
+
+      .field label { font-weight: 600; }
+      .field input {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 14px;
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .btn {
+        width: 100%;
+        border: 0;
+        border-radius: 14px;
+        padding: 12px;
+        background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+
+      .switch-link {
+        display: block;
+        margin-top: 12px;
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .form-panel { display: none; }
+      .form-panel.active { display: block; }
+
+      @media (max-width: 900px) {
+        .auth-box { max-width: 100%; }
+      }
+
+      @media (max-width: 620px) {
+        .page-shell { padding: 14px; }
+        .nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--bg);
+      backdrop-filter: saturate(180%) blur(18px); flex-direction: column; align-items: flex-start; gap: 8px; }
+      }
+          .menu-toggle {
+        display: none;
+        border: 0;
+        background: transparent;
+        font-size: 1.6rem;
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      @media (max-width: 900px) {
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          gap: 12px;
+          margin-top: 12px;
+        }
+
+        .nav-links.open {
+          display: flex;
+        }
+
+        .nav-links a,
+        .nav-links .btn,
+        .nav-links .cart-link {
+          width: 100%;
+          text-align: center;
+        }
+
+        .cart-link {
+          justify-content: center;
+        }
+      }
+</style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="nav">
+        <a class="brand" href="home.html"><img src="logo/psychedelic logo1.jpeg" alt="Psychedelics logo" class="brand-logo" />Psychedelics</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+        <div class="nav-links" id="navLinks">
+          <a href="home.html">Home</a>
+          <a href="products.html">Shop</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="account.html">Acct</a>
+        </div>
+      </nav>
+
+      <div class="auth-box">
+        <section class="panel">
+          <div class="toggle-row">
+            <button class="toggle-btn active" id="loginToggle" type="button">Login</button>
+            <button class="toggle-btn" id="signupToggle" type="button">Create account</button>
+          </div>
+
+          <div class="form-panel active" id="loginPanel">
+            <h2>Login</h2>
+            <p>Welcome back. Sign in to continue browsing psychedelic wellness products.</p>
+            <form>
+              <div class="field">
+                <label for="loginEmail">Email</label>
+                <input id="loginEmail" type="email" required />
+              </div>
+              <div class="field">
+                <label for="loginPassword">Password</label>
+                <input id="loginPassword" type="password" required />
+              </div>
+              <button class="btn" type="submit">Log in</button>
+            </form>
+            <a class="switch-link" href="account.html">Go to account page</a>
+          </div>
+
+          <div class="form-panel" id="signupPanel">
+            <h2>Create account</h2>
+            <p>New here? Create an account to save preferences and order history.</p>
+            <form>
+              <div class="field">
+                <label for="signupName">Full name</label>
+                <input id="signupName" required />
+              </div>
+              <div class="field">
+                <label for="signupEmail">Email</label>
+                <input id="signupEmail" type="email" required />
+              </div>
+              <div class="field">
+                <label for="signupPassword">Password</label>
+                <input id="signupPassword" type="password" required />
+              </div>
+              <button class="btn" type="submit">Sign up</button>
+            </form>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script>
+      const loginToggle = document.getElementById('loginToggle');
+      const signupToggle = document.getElementById('signupToggle');
+      const loginPanel = document.getElementById('loginPanel');
+      const signupPanel = document.getElementById('signupPanel');
+
+      function activate(panel) {
+        loginPanel.classList.toggle('active', panel === 'login');
+        signupPanel.classList.toggle('active', panel === 'signup');
+        loginToggle.classList.toggle('active', panel === 'login');
+        signupToggle.classList.toggle('active', panel === 'signup');
+      }
+
+      loginToggle.addEventListener('click', () => activate('login'));
+      signupToggle.addEventListener('click', () => activate('signup'));
+    </script>
+      <script>
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+          const expanded = navLinks.classList.toggle('open');
+          menuToggle.textContent = expanded ? '✕' : '☰';
+          menuToggle.setAttribute('aria-label', expanded ? 'Close navigation' : 'Open navigation');
+        });
+      }
+    </script>
+</body>
+</html>

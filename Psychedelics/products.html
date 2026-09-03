@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Psychedelics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #08101f;
+        --surface: rgba(15, 23, 42, 0.96);
+        --surface-2: rgba(31, 41, 55, 0.9);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #7c3aed;
+        --accent-2: #22c55e;
+        --border: rgba(148, 163, 184, 0.18);
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #0b1522 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+
+      button,
+      input {
+        font: inherit;
+      }
+
+      .page-shell {
+        max-width: 1320px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .nav {
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--bg);
+      backdrop-filter: saturate(180%) blur(18px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .brand-logo {
+        height: 32px;
+        width: auto;
+        display: inline-block;
+        object-fit: contain;
+      }
+
+      .nav-links {
+
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }      .nav-links a {
+        color: var(--muted);
+        font-weight: 600;
+        transition: color 180ms ease, background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .nav-links a:hover {
+        color: white;
+        background: rgba(124, 58, 237, 0.18);
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(124, 58, 237, 0.18);
+        border-radius: 999px;
+      }
+
+      .nav-links a.active {
+        color: var(--accent);
+      }
+
+      .nav-links .btn {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: white;
+      }
+
+      .cart-link {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: white;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .cart-link:hover {
+        background: rgba(124, 58, 237, 0.85);
+      }
+
+      .cart-badge {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        min-width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        background: #facc15;
+        color: #0f172a;
+        font-size: 0.75rem;
+        font-weight: 700;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 5px;
+        box-shadow: 0 0 0 2px var(--bg);
+      }
+
+      .menu-toggle {
+        display: none;
+        border: 0;
+        background: transparent;
+        font-size: 1.4rem;
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .hero {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        padding: 30px;
+        background: linear-gradient(90deg, #111827 0%, #312e81 100%);
+        color: white;
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+      }
+
+      .eyebrow {
+        margin: 0 0 8px;
+        text-transform: uppercase;
+        letter-spacing: 0.25em;
+        font-size: 0.76rem;
+        opacity: 0.8;
+      }
+
+      .hero h1 {
+        margin: 0 0 8px;
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+      }
+
+      .hero-copy {
+        margin: 0;
+        max-width: 560px;
+        color: rgba(255, 255, 255, 0.85);
+      }
+
+      .hero-badge {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        padding: 16px 18px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(8px);
+      }
+
+      .content-grid {
+        display: grid;
+        grid-template-columns: 2fr 0.95fr;
+        gap: 24px;
+        margin-top: 24px;
+      }
+
+      .catalog-section,
+      .cart-panel {
+        background: var(--surface);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+
+      .catalog-section {
+        padding: 24px;
+      }
+
+      .toolbar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .search-box {
+        flex: 1;
+        min-width: 260px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 14px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: #f9fbff;
+      }
+
+      .search-box input {
+        border: 0;
+        outline: 0;
+        background: transparent;
+        width: 100%;
+      }
+
+      .chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .chip {
+        border: 0;
+        padding: 9px 12px;
+        border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--accent);
+        cursor: pointer;
+        transition: transform 160ms ease, background 160ms ease;
+      }
+
+      .chip.active,
+      .chip:hover {
+        background: var(--accent);
+        color: white;
+        transform: translateY(-1px);
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+      }
+
+      .product-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 18px;
+        background: linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(248,250,255,0.98) 100%);
+        box-shadow: 0 8px 30px rgba(2,6,23,0.35);
+        transition: transform 220ms ease, box-shadow 220ms ease;
+        display: flex;
+        flex-direction: column;
+        color: inherit;
+      }
+
+      .product-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 50px rgba(2,6,23,0.45);
+      }
+
+      .product-image {
+        width: 100%;
+        height: 220px;
+        display: block;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .product-body {
+        padding: 14px 16px 16px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .product-category {
+        font-size: 0.8rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .product-card h3 {
+        margin: 0;
+        font-size: 1.05rem;
+        line-height: 1.15;
+      }
+
+      .product-card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+        max-height: 3.6rem;
+        overflow: hidden;
+      }
+
+      .product-foot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 8px;
+      }
+
+      .buy-controls {
+        display: flex;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      /* unit selector removed - using 3.5g by default */
+
+      .price {
+        font-weight: 800;
+        color: var(--accent);
+      }
+
+      .add-btn {
+        border: 0;
+        border-radius: 12px;
+        padding: 8px 12px;
+        background: var(--accent);
+        color: white;
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .product-price {
+        font-weight: 800;
+        color: var(--accent);
+      }
+
+      .cart-panel {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        min-height: 500px;
+      }
+
+      .cart-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+
+      .cart-pill {
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--accent);
+        font-weight: 600;
+      }
+
+      .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        flex: 1;
+      }
+
+      .cart-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+      }
+
+      .cart-item strong {
+        display: block;
+      }
+
+      .cart-empty {
+        padding: 20px;
+        text-align: center;
+        color: var(--muted);
+        border: 1px dashed var(--border);
+        border-radius: 14px;
+      }
+
+      .cart-footer {
+        margin-top: 16px;
+        border-top: 1px solid var(--border);
+        padding-top: 16px;
+      }
+
+      .subtotal-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        border: 0;
+        border-radius: 14px;
+        padding: 12px;
+        background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .clear-btn {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 10px;
+        margin-top: 8px;
+        background: var(--surface);
+        color: var(--text);
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      @media (max-width: 980px) {
+        .content-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 620px) {
+        .page-shell {
+          padding: 14px;
+        }
+
+        .nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--bg);
+      backdrop-filter: saturate(180%) blur(18px);
+          position: relative;
+        }
+
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .nav-links {
+          display: none;
+          position: absolute;
+          top: 48px;
+          right: 0;
+          flex-direction: column;
+          align-items: flex-start;
+          background: var(--surface);
+          padding: 12px;
+          border-radius: 14px;
+          box-shadow: var(--shadow);
+          min-width: 180px;
+        }
+
+        .nav-links.open {
+          display: flex;
+        }
+
+        .hero {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .product-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="nav">
+        <a class="brand" href="home.html"><img src="logo/psychedelic logo1.jpeg" alt="Psychedelics logo" class="brand-logo" />Psychedelics</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+        <div class="nav-links" id="navLinks">
+          <a href="home.html">Home</a>
+          <a class="active" href="products.html">Shop</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="account.html">Acct</a>
+          <a href="auth.html">Login</a>
+          <a href="admin.html">Admin</a>
+          <a class="cart-link" href="cart.html" aria-label="View cart">
+            <span class="cart-icon">🛒</span>
+            <span id="navCartCount" class="cart-badge">0</span>
+          </a>
+        </div>
+      </nav>
+
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Psychedelic collections</p>
+          <h1>Psychedelics</h1>
+          <p class="hero-copy">
+            Browse plant-based medicines, ceremony essentials, and support formulas for intentional journeys.
+          </p>
+        </div>
+        <div class="hero-badge">
+          <span>Discreet shipping</span>
+          <strong>Discreet packaging on all orders</strong>
+        </div>
+      </header>
+
+      <main class="content-grid">
+        <section class="catalog-section">
+          <div class="toolbar">
+            <div class="search-box">
+              <span>🔎</span>
+              <input id="searchInput" type="text" placeholder="Search products" />
+            </div>
+            <div id="categoryFilters" class="chip-row"></div>
+          </div>
+
+          <div id="productGrid" class="product-grid"></div>
+        </section>
+
+        <aside class="cart-panel">
+          <div class="cart-header">
+            <div>
+              <p class="eyebrow">Your bag</p>
+              <h2>Cart</h2>
+            </div>
+            <span id="cartCount" class="cart-pill">0 items</span>
+          </div>
+
+          <div id="cartItems" class="cart-items"></div>
+
+          <div class="cart-footer">
+            <div class="subtotal-row">
+              <span>Subtotal</span>
+              <strong id="subtotal">$0.00</strong>
+            </div>
+            <a href="checkout.html" id="checkoutBtn" class="checkout-btn" style="display:inline-block; text-align:center; text-decoration:none;">Checkout</a>
+            <button id="clearCartBtn" class="clear-btn" type="button">Clear cart</button>
+          </div>
+        </aside>
+      </main>
+    </div>
+
+    <script>
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+      const searchInput = document.getElementById('searchInput');
+      const categoryFilters = document.getElementById('categoryFilters');
+      const productGrid = document.getElementById('productGrid');
+      const cartItemsEl = document.getElementById('cartItems');
+      const cartCountEl = document.getElementById('cartCount');
+      const subtotalEl = document.getElementById('subtotal');
+      const clearCartBtn = document.getElementById('clearCartBtn');
+      const navCartCount = document.getElementById('navCartCount');
+
+      const products = [
+        {
+          id: 'psydel01',
+          name: 'Psilocybin Cubensis',
+          category: 'Fungi',
+          price: 200,
+          image: 'product images/image a1.jpeg',
+          description: 'Research suggests that psilocybin may help support mental well-being by promoting emotional insight, psychological flexibility, and positive mood changes when used in professionally supervised therapeutic settings.',
+        },
+        {
+          id: 'psydel02',
+          name: 'Liberty Caps',
+          category: 'Fungi',
+          price: 200,
+          image: 'product images/image a2.jpeg',
+          description: 'Liberty Caps are being researched for potential reduction of depression, anxiety, and PTSD symptoms when used in professionally supervised therapeutic settings.',
+        },
+        {
+          id: 'psydel03',
+          name: 'Blue Meanies',
+          category: 'Fungi',
+          price: 200,
+          image: 'product images/image a3.jpeg',
+          description: 'These shrooms have different hallucinogenic properties but similar health-supporting benefits when used with a professional guide.',
+        },
+        {
+          id: 'psydel04',
+          name: 'Psilocybe Mexicana',
+          category: 'Fungi',
+          price: 200,
+          image: 'product images/image a4.jpeg',
+          description: 'Traditionally used in ceremonial settings, Psilocybe mexicana is studied for its potential to support emotional well-being under professional supervision.',
+        },
+        {
+          id: 'psydel05',
+          name: 'Penis Envy',
+          category: 'Fungi',
+          price: 200,
+          image: 'product images/image a5.jpeg',
+          description: 'A potent psilocybin mushroom being researched for its potential to support treatment of depression, anxiety, PTSD, and other mental health challenges.',
+        },
+        {
+          id: 'psydel06',
+          name: 'Golden Teachers',
+          category: 'Fungi',
+          price: 200,
+          image: 'product images/image a6.jpeg',
+          description: 'Golden Teacher is studied for potential support in treatment-resistant depression, anxiety, PTSD, and other mental health issues under proper supervision.',
+        },
+        {
+          id: 'psydel07',
+          name: 'Golden Cap',
+          category: 'Fungi',
+          price: 200,
+          image: 'product images/image a7.jpeg',
+          description: 'This mushroom may support recovery from substance-use disorders, depression, and PTSD by promoting emotional processing and psychological flexibility.',
+        },
+        {
+          id: 'psydel08',
+          name: 'Chocolate Bars',
+          category: 'Edibles',
+          price: 50,
+          image: 'product images/image a8.jpeg',
+          description: '3.5g for $50. 12 pieces per chocolate. A discreet edible option for gentle support and ceremonial-style consumption.',
+          altLabel: '3.5g — $50',
+        },
+        {
+          id: 'psydel09',
+          name: 'LSD SHEETS 🧩',
+          category: 'Psychedelics',
+          price: 150,
+          image: 'product images/image 9.jpeg',
+          description: 'Clinical research shows that LSD possesses significant therapeutic potential for treating mental health conditions when administered in controlled, medical settings.',
+          altLabel: 'A sheet of 100 tabs, 150ug at $150',
+        },
+        {
+          id: 'psydel10',
+          name: 'LIQUID LSD',
+          category: 'Psychedelics',
+          price: 150,
+          image: 'product images/image 10.jpeg',
+          description: 'A liquid extract designed for consistent dosing and discreet therapeutic use.',
+          altLabel: '15ml $150',
+        },
+        {
+          id: 'psydel11',
+          name: 'MICRODOSE PILLS 💊🍄',
+          category: 'Psychedelics',
+          price: 8,
+          image: 'product images/image 11.jpeg',
+          description: 'Microdose pills for gentle daily support and improved focus in controlled microdosing routines.',
+          altLabel: '$8 a pill',
+        },
+        {
+          id: 'psydel12',
+          name: 'DMT',
+          category: 'Psychedelics',
+          price: 60,
+          image: 'product images/image 12.jpeg',
+          description: 'DMT shows potential health benefits for treatment-resistant depression, anxiety disorders, and PTSD, primarily when administered as a psychedelic-assisted therapy in supervised clinical settings.',
+          altLabel: 'One gram $60',
+        },
+        {
+          id: 'psydel13',
+          name: 'DMT VAPE CARTS',
+          category: 'Psychedelics',
+          price: 180,
+          image: 'product images/image 13.jpeg',
+          description: 'High-quality DMT vape carts for discreet, controlled use in appropriate settings.',
+          altLabel: '5 vapes $180',
+        },
+        {
+          id: 'psydel14',
+          name: 'MDMA',
+          category: 'Psychedelics',
+          price: 100,
+          image: 'product images/image 14.jpeg',
+          description: 'MDMA helps in treating post-traumatic stress disorder (PTSD), reducing fear and improving empathy during talk therapy.',
+          altLabel: '1 gram $100',
+        },
+        {
+          id: 'psydel15',
+          name: 'KETAMIN POWDER',
+          category: 'Psychedelics',
+          price: 160,
+          image: 'product images/image 15.jpeg',
+          description: 'Ketamine provides rapid relief for treatment-resistant depression, reduces suicidal thoughts within hours, manages chronic pain, and promotes brain neuroplasticity.',
+          altLabel: '7gms $160',
+        },
+        {
+          id: 'psydel16',
+          name: 'LIQUID KETAMIN',
+          category: 'Psychedelics',
+          price: 200,
+          image: 'product images/image 16.jpeg',
+          description: 'Liquid ketamine formulated for controlled therapeutic applications and easy dosing.',
+          altLabel: '5 Vails $200',
+        },
+        {
+          id: 'psydel17',
+          name: 'Mescaline / Peyote🌵',
+          category: 'Psychedelics',
+          price: 90,
+          image: 'product images/image 17.jpeg',
+          description: 'Peyote is being researched for its potential to support mental health by helping with depression, anxiety, emotional healing, psychological well-being, and certain substance use disorders when used in professionally supervised therapeutic settings.',
+          altLabel: '2-3cm $90',
+        }
+      ];
+
+      const categories = ['All', 'Fungi', 'Edibles', 'Psychedelics'];
+      let selectedCategory = 'All';
+
+      function loadCart() {
+        return JSON.parse(localStorage.getItem('psychedelics-cart') || '[]');
+      }
+
+      function saveCart(cart) {
+        localStorage.setItem('psychedelics-cart', JSON.stringify(cart));
+      }
+
+      function formatCurrency(value) {
+        return `$${value.toFixed(2)}`;
+      }
+
+      function updateNavCartCount() {
+        const cart = loadCart();
+        const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+        navCartCount.textContent = count;
+      }
+
+      function renderCategories() {
+        categoryFilters.innerHTML = '';
+        categories.forEach((category) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = selectedCategory === category ? 'chip active' : 'chip';
+          button.textContent = category;
+          button.addEventListener('click', () => {
+            selectedCategory = category;
+            renderCategories();
+            renderProducts();
+          });
+          categoryFilters.appendChild(button);
+        });
+      }
+
+      function getFilteredProducts() {
+        const searchTerm = searchInput.value.trim().toLowerCase();
+        return products.filter((product) => {
+          const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
+          const matchesSearch =
+            product.name.toLowerCase().includes(searchTerm) ||
+            product.description.toLowerCase().includes(searchTerm);
+          return matchesCategory && matchesSearch;
+        });
+      }
+
+      function renderProducts() {
+        const filtered = getFilteredProducts();
+        productGrid.innerHTML = '';
+
+        if (!filtered.length) {
+          productGrid.innerHTML = '<p style="color: var(--muted);">No products match your search or filter.</p>';
+          return;
+        }
+
+        filtered.forEach((product) => {
+          const card = document.createElement('article');
+          card.className = 'product-card';
+          card.innerHTML = `
+            <div class="product-image">
+              <a href="product-detail.html?id=${product.id}">
+                <img src="${product.image}" alt="${product.name}" />
+              </a>
+            </div>
+            <div class="product-body">
+              <h3><a href="product-detail.html?id=${product.id}">${product.name}</a></h3>
+              <div class="product-foot">
+                <div class="product-price">${product.altLabel ? product.altLabel : formatCurrency(product.price)}</div>
+                <button class="add-btn" type="button" data-product-id="${product.id}">Add to cart</button>
+              </div>
+            </div>
+          `;
+
+          // add quantity and unit controls
+          const addButton = card.querySelector('button[data-product-id]');
+          addButton.classList.add('add-btn');
+          addButton.addEventListener('click', () => {
+            const unit = 'g'; // default to 3.5g packs
+            const qty = 1;
+            addToCart(product.id, unit, qty);
+          });
+          productGrid.appendChild(card);
+        });
+      }
+
+      function renderCart() {
+        const cart = loadCart();
+        cartItemsEl.innerHTML = '';
+        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const subtotal = cart.reduce((sum, item) => sum + item.quantity * item.price, 0);
+
+        if (!cart.length) {
+          cartItemsEl.innerHTML = '<p style="color: var(--muted);">Your bag is empty. Add something from the shop.</p>';
+        } else {
+          cart.forEach((item) => {
+            const row = document.createElement('div');
+            row.className = 'cart-item';
+            row.innerHTML = `
+              <div>
+                <strong>${item.name}</strong>
+                <p>${item.quantity} ${item.unit === 'g' ? `${item.unitSize}g` : item.unit} × ${formatCurrency(item.price)}</p>
+              </div>
+              <span>${formatCurrency(item.quantity * item.price)}</span>
+            `;
+            cartItemsEl.appendChild(row);
+          });
+        }
+
+        cartCountEl.textContent = `${totalItems} item${totalItems === 1 ? '' : 's'}`;
+        subtotalEl.textContent = formatCurrency(subtotal);
+        updateNavCartCount();
+      }
+
+      function addToCart(productId, unit = 'g', qty = 1) {
+        const product = products.find((item) => item.id === productId);
+        if (!product) return;
+
+        // calculate per-unit price depending on unit
+        let unitSize = null; // grams when unit is g
+        let perUnitPrice = product.price;
+        if (unit === 'g') {
+          unitSize = 3.5; // 3.5g pack
+          if (product.altLabel) {
+            // product.price already represents the small pack price (e.g., chocolate)
+            perUnitPrice = product.price;
+          } else {
+            const perGram = product.price / 28.35; // price per gram assuming price is per ounce
+            perUnitPrice = parseFloat((perGram * unitSize).toFixed(2));
+          }
+        }
+
+        const cart = loadCart();
+        const existing = cart.find((item) => item.id === productId && item.unit === unit && item.unitSize === unitSize);
+
+        if (existing) {
+          existing.quantity += qty;
+        } else {
+          cart.push({ id: product.id, name: product.name, image: product.image, quantity: qty, price: perUnitPrice, unit: unit, unitSize: unitSize });
+        }
+
+        saveCart(cart);
+        renderCart();
+      }
+
+      function clearCart() {
+        saveCart([]);
+        renderCart();
+      }
+
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+          const expanded = navLinks.classList.toggle('open');
+          menuToggle.textContent = expanded ? '✕' : '☰';
+          menuToggle.setAttribute('aria-label', expanded ? 'Close navigation' : 'Open navigation');
+        });
+      }
+
+      clearCartBtn.addEventListener('click', clearCart);
+      searchInput.addEventListener('input', renderProducts);
+
+      renderCategories();
+      renderProducts();
+      renderCart();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Psychedelics | Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #08101f;
+        --surface: rgba(15, 23, 42, 0.96);
+        --surface-2: rgba(31, 41, 55, 0.9);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #7c3aed;
+        --accent-2: #22c55e;
+        --border: rgba(148, 163, 184, 0.18);
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #0b1522 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+      a { text-decoration: none; }
+      button, input { font: inherit; }
+
+      .page-shell {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .nav {
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--bg);
+      backdrop-filter: saturate(180%) blur(18px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .brand-logo {
+        height: 32px;
+        width: auto;
+        display: inline-block;
+        object-fit: contain;
+      }
+
+      .nav-links {
+
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }      .nav-links a {
+        color: var(--muted);
+        font-weight: 600;
+        transition: color 180ms ease, background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .nav-links a:hover {
+        color: white;
+        background: rgba(124, 58, 237, 0.18);
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(124, 58, 237, 0.18);
+        border-radius: 999px;
+      }
+
+      .nav-links .btn {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: white;
+      }
+
+      .cart-grid {
+        display: grid;
+        grid-template-columns: 1.3fr 0.7fr;
+        gap: 24px;
+      }
+
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        padding: 24px;
+      }
+
+      .panel h1, .panel h2 { margin: 0 0 8px; }
+      .panel p { margin: 0 0 16px; color: var(--muted); }
+
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .cart-item:last-child { border-bottom: 0; }
+
+      .item-main {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .item-emoji {
+        width: 48px;
+        height: 48px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        background: var(--surface-2);
+        font-size: 1.4rem;
+      }
+
+      .qty-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .qty-btn {
+        border: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--accent);
+        cursor: pointer;
+      }
+
+      .summary-box {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+      }
+
+      .summary-total {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 700;
+        font-size: 1.1rem;
+        padding-top: 8px;
+        border-top: 1px solid var(--border);
+      }
+
+      .action-btn {
+        width: 100%;
+        border: 0;
+        border-radius: 14px;
+        padding: 12px;
+        background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+        color: white;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+
+      .ghost-btn {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 10px;
+        background: var(--surface);
+        color: var(--text);
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 8px;
+      }
+
+      .empty-state {
+        padding: 20px;
+        border: 1px dashed var(--border);
+        border-radius: 14px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      @media (max-width: 900px) {
+        .cart-grid { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 620px) {
+        .page-shell { padding: 14px; }
+        .nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--bg);
+      backdrop-filter: saturate(180%) blur(18px); flex-direction: column; align-items: flex-start; gap: 8px; }
+      }
+          .menu-toggle {
+        display: none;
+        border: 0;
+        background: transparent;
+        font-size: 1.6rem;
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      @media (max-width: 900px) {
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          gap: 12px;
+          margin-top: 12px;
+        }
+
+        .nav-links.open {
+          display: flex;
+        }
+
+        .nav-links a,
+        .nav-links .btn,
+        .nav-links .cart-link {
+          width: 100%;
+          text-align: center;
+        }
+
+        .cart-link {
+          justify-content: center;
+        }
+      }
+</style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="nav">
+        <a class="brand" href="home.html"><img src="logo/psychedelic logo1.jpeg" alt="Psychedelics logo" class="brand-logo" />Psychedelics</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+        <div class="nav-links" id="navLinks">
+          <a href="home.html">Home</a>
+          <a href="products.html">Shop</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="admin.html">Admin</a>
+          <a class="btn" href="checkout.html">Checkout</a>
+        </div>
+      </nav>
+
+      <div class="cart-grid">
+        <section class="panel">
+          <h1>Your cart</h1>
+          <p>Review your selected products and adjust quantities before checkout.</p>
+          <div id="cartItems"></div>
+        </section>
+
+        <aside class="panel">
+          <h2>Order summary</h2>
+          <p>Shipping and taxes are calculated at checkout.</p>
+          <div id="summaryBox" class="summary-box"></div>
+        </aside>
+      </div>
+    </div>
+
+    <script>
+      const cartItems = document.getElementById('cartItems');
+      const summaryBox = document.getElementById('summaryBox');
+
+      function formatCurrency(value) {
+        return `$${value.toFixed(2)}`;
+      }
+
+      function getCart() {
+        return JSON.parse(localStorage.getItem('psychedelics-cart') || '[]');
+      }
+
+      function saveCart(cart) {
+        localStorage.setItem('psychedelics-cart', JSON.stringify(cart));
+      }
+
+      function renderCart() {
+        const cart = getCart();
+
+        if (cart.length === 0) {
+          cartItems.innerHTML = '<div class="empty-state">Your cart is empty. Browse the shop to add mindful items.</div>';
+          summaryBox.innerHTML = '<div class="empty-state">No items yet.</div>';
+          return;
+        }
+
+        cartItems.innerHTML = '';
+        const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+        cart.forEach((item) => {
+          const row = document.createElement('div');
+          row.className = 'cart-item';
+          row.innerHTML = `
+            <div class="item-main">
+              <div class="item-emoji">${item.emoji || '✨'}</div>
+              <div>
+                <strong>${item.name}</strong>
+                <div>${item.quantity} ${item.unit === 'g' ? `${item.unitSize}g` : item.unit} × ${formatCurrency(item.price)} each</div>
+              </div>
+            </div>
+            <div class="qty-controls">
+              <button class="qty-btn" data-action="decrease" data-id="${item.id}" data-unit="${item.unit || 'g'}" data-unitsize="${item.unitSize || ''}">−</button>
+              <span>${item.quantity}</span>
+              <button class="qty-btn" data-action="increase" data-id="${item.id}" data-unit="${item.unit || 'g'}" data-unitsize="${item.unitSize || ''}">+</button>
+            </div>
+          `;
+
+          row.querySelector('[data-action="decrease"]').addEventListener('click', (e) => { const btn = e.currentTarget; updateQuantity(item.id, -1, btn.dataset.unit, btn.dataset.unitsize); });
+          row.querySelector('[data-action="increase"]').addEventListener('click', (e) => { const btn = e.currentTarget; updateQuantity(item.id, 1, btn.dataset.unit, btn.dataset.unitsize); });
+          cartItems.appendChild(row);
+        });
+
+        summaryBox.innerHTML = `
+          <div class="summary-row"><span>Subtotal</span><strong>${formatCurrency(subtotal)}</strong></div>
+          <div class="summary-row"><span>Shipping</span><strong>Free</strong></div>
+          <div class="summary-row"><span>Estimated tax</span><strong>${formatCurrency(subtotal * 0.08)}</strong></div>
+          <div class="summary-total"><span>Total</span><span>${formatCurrency(subtotal + subtotal * 0.08)}</span></div>
+          <a class="action-btn" href="checkout.html">Proceed to checkout</a>
+          <button class="ghost-btn" id="clearCartBtn" type="button">Clear cart</button>
+        `;
+
+        document.getElementById('clearCartBtn').addEventListener('click', () => {
+          saveCart([]);
+          renderCart();
+        });
+      }
+
+      function updateQuantity(productId, change, unit = 'g', unitSize = '') {
+        const cart = getCart().map((item) => 
+          (item.id === productId && String(item.unit || 'g') === String(unit) && String(item.unitSize || '') === String(unitSize))
+            ? { ...item, quantity: Math.max(0, item.quantity + change) }
+            : item
+        ).filter((item) => item.quantity > 0);
+
+        saveCart(cart);
+        renderCart();
+      }
+
+      renderCart();
+    </script>
+      <script>
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+          const expanded = navLinks.classList.toggle('open');
+          menuToggle.textContent = expanded ? '✕' : '☰';
+          menuToggle.setAttribute('aria-label', expanded ? 'Close navigation' : 'Open navigation');
+        });
+      }
+    </script>
+</body>
+</html>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Psychedelics | Account</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #08101f;
+        --surface: rgba(15, 23, 42, 0.96);
+        --surface-2: rgba(31, 41, 55, 0.9);
+        --text: #e2e8f0;
+        --muted: #94a3b8;
+        --accent: #7c3aed;
+        --accent-2: #22c55e;
+        --border: rgba(148, 163, 184, 0.18);
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(135deg, #0b1522 0%, var(--bg) 100%);
+        color: var(--text);
+      }
+      a { text-decoration: none; }
+      button, input { font: inherit; }
+
+      .page-shell {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 24px;
+      }
+
+      .nav {
+      padding: 12px 24px;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.18);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--bg);
+      backdrop-filter: saturate(180%) blur(18px);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+      }
+
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .brand-logo {
+        height: 32px;
+        width: auto;
+        display: inline-block;
+        object-fit: contain;
+      }
+
+      .nav-links {
+
+        display: flex;
+        gap: 16px;
+        align-items: center;
+      }      .nav-links a {
+        color: var(--muted);
+        font-weight: 600;
+        transition: color 180ms ease, background-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
+      }
+
+      .nav-links a:hover {
+        color: white;
+        background: rgba(124, 58, 237, 0.18);
+        transform: translateY(-1px);
+        box-shadow: 0 10px 24px rgba(124, 58, 237, 0.18);
+        border-radius: 999px;
+      }
+
+      .nav-links .btn {
+        padding: 10px 14px;
+        border-radius: 999px;
+        background: var(--accent);
+        color: white;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: 24px;
+      }
+
+      .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        padding: 24px;
+      }
+
+      .avatar {
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+        color: white;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin-bottom: 12px;
+      }
+
+      .panel h1, .panel h2 { margin: 0 0 6px; }
+      .panel p { margin: 0 0 16px; color: var(--muted); }
+
+      .info-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .info-list div {
+        padding: 12px 14px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--border);
+      }
+
+      .order-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: center;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+      }
+
+      .badge {
+        display: inline-block;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: var(--surface-2);
+        color: var(--accent);
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+
+      @media (max-width: 900px) {
+        .grid { grid-template-columns: 1fr; }
+      }
+
+      @media (max-width: 620px) {
+        .page-shell { padding: 14px; }
+        .nav {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: var(--bg);
+      backdrop-filter: saturate(180%) blur(18px); flex-direction: column; align-items: flex-start; gap: 8px; }
+      }
+          .menu-toggle {
+        display: none;
+        border: 0;
+        background: transparent;
+        font-size: 1.6rem;
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      @media (max-width: 900px) {
+        .menu-toggle {
+          display: inline-flex;
+        }
+
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          gap: 12px;
+          margin-top: 12px;
+        }
+
+        .nav-links.open {
+          display: flex;
+        }
+
+        .nav-links a,
+        .nav-links .btn,
+        .nav-links .cart-link {
+          width: 100%;
+          text-align: center;
+        }
+
+        .cart-link {
+          justify-content: center;
+        }
+      }
+</style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="nav">
+        <a class="brand" href="home.html"><img src="logo/psychedelic logo1.jpeg" alt="Psychedelics logo" class="brand-logo" />Psychedelics</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">☰</button>
+        <div class="nav-links" id="navLinks">
+          <a href="home.html">Home</a>
+          <a href="products.html">Shop</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+          <a href="admin.html">Admin</a>
+          <a class="btn" href="cart.html">Cart</a>
+        </div>
+      </nav>
+
+      <div class="grid">
+        <section class="panel">
+          <div class="avatar">JS</div>
+          <h1>Welcome back</h1>
+          <p>Your account overview and recent orders are here.</p>
+          <div class="info-list">
+            <div><strong>Name:</strong> Jane Smith</div>
+            <div><strong>Email:</strong> jane@example.com</div>
+            <div><strong>Member since:</strong> January 2025</div>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Recent orders</h2>
+          <p>Here are your latest purchases.</p>
+          <div class="order-item">
+            <div>
+              <strong>#NTH-1042</strong>
+              <div>Orbit Headphones</div>
+            </div>
+            <span class="badge">Delivered</span>
+          </div>
+          <div class="order-item">
+            <div>
+              <strong>#NTH-1038</strong>
+              <div>Cedar Water Bottle</div>
+            </div>
+            <span class="badge">Shipped</span>
+          </div>
+          <div class="order-item">
+            <div>
+              <strong>#NTH-1029</strong>
+              <div>Tide Journal</div>
+            </div>
+            <span class="badge">Processing</span>
+          </div>
+        </section>
+      </div>
+    </div>
+      <script>
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+
+      if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+          const expanded = navLinks.classList.toggle('open');
+          menuToggle.textContent = expanded ? '✕' : '☰';
+          menuToggle.setAttribute('aria-label', expanded ? 'Close navigation' : 'Open navigation');
+        });
+      }
+    </script>
+</body>
+</html>
